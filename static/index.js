@@ -4,7 +4,7 @@
 
 function Header() {
    return (
-      <div class="header">
+      <div className="header">
          <img id="header-image" src="./static/journal.jpg" />
          <h1>My Journal</h1>
       </div>
@@ -13,45 +13,36 @@ function Header() {
 
 /*** COMPOSER ***/
 
-class Composer extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = { textareaValue: "" };
+function Composer(props) {
+   const [textareaValue, setTextAreaValue] = React.useState('');
 
-      this.handleTextareaChange = this.handleTextareaChange.bind(this);
-      this.handleComposerSubmit = this.handleComposerSubmit.bind(this);
+   const handleTextareaChange = (event) => {
+      setTextAreaValue(event.target.value);
    }
-
-   handleTextareaChange(event) {
-      this.setState({ textareaValue: event.target.value });
-   }
-
-   handleComposerSubmit(event) {
-      this.props.onSubmitPost(this.state.textareaValue);
+   const handleComposerSubmit = (event) => {
+      props.onSubmitPost(textareaValue);
       event.preventDefault();
    }
 
-   render() {
-      return (
-         <div class="composer">
-            <h2 id="form-heading">What's on your mind?</h2>
-            <form onSubmit={this.handleComposerSubmit} >
-               <label>
-                  <textarea
-                     id="form-textarea"
-                     value={this.state.textareaValue}
-                     onChange={this.handleTextareaChange}
-                     placeholder="Write your next post."
-                     rows="10"
-                     cols="62"
-                  />
-                  <br />
-               </label>
-               <input type="submit" value="Post" />
-            </form>
-         </div>
-      );
-   }
+   return (
+      <div className="composer">
+         <h2 id="form-heading">What's on your mind?</h2>
+         <form onSubmit={handleComposerSubmit} >
+            <label>
+               <textarea
+                  id="form-textarea"
+                  value={textareaValue}
+                  onChange={handleTextareaChange}
+                  placeholder="Write your next post."
+                  rows="10"
+                  cols="62"
+               />
+               <br />
+            </label>
+            <input type="submit" value="Post" />
+         </form>
+      </div>
+   );
 }
 
 /*** FEED ***/
@@ -69,7 +60,7 @@ function Feed(props) {
 
 function Post(props) {
    return (
-      <div class="post">
+      <div className="post">
          <h2>{props.date}</h2>
          <p>{props.text}</p>
       </div>
@@ -80,7 +71,7 @@ function Post(props) {
 
 function Footer() {
    return (
-      <div class="footer">
+      <div className="footer">
          <p>Created by TXST ACM Chapter (<a href="https://twitter.com/TxStateACM">follow us on Twitter</a>)</p>
          <p>Copyright 2021</p>
       </div>
@@ -89,45 +80,36 @@ function Footer() {
 
 /*** MAIN APP ***/
 
-class App extends React.Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         posts: [
-            {
-               "date": "03/03/2021",
-               "text": "This is my second journal entry. Here is some more text so that this journal entry takes multiple lines to render.",
-            },
-            {
-               "date": "03/02/2021",
-               "text": "This is my very first journal entry. Hello, world!",
-            },
-         ]
-      };
+function App() {
+   const [posts, setPosts] = React.useState(
+      [
+         {
+            "date": "03/03/2021",
+            "text": "This is my second journal entry. Here is some more text so that this journal entry takes multiple lines to render.",
+         },
+         {
+            "date": "03/02/2021",
+            "text": "This is my very first journal entry. Hello, world!",
+         },
+      ]
+   );
 
-      this.onSubmitPost = this.onSubmitPost.bind(this);
-   }
-
-   onSubmitPost(text) {
-      let newPosts = this.state.posts;
+   const onSubmitPost = (text) => {
       const todaysDate = new Date().toLocaleDateString();
-      newPosts.unshift({
+      setPosts([{
          "date": todaysDate,
          "text": text,
-      });
-      this.setState({ posts: newPosts });
+      }, ...posts]);
    }
 
-   render() {
-      return (
-         <div>
-            <Header />
-            <Composer onSubmitPost={this.onSubmitPost} />
-            <Feed posts={this.state.posts} />
-            <Footer />
-         </div>
-      );
-   }
+   return (
+      <div>
+         <Header />
+         <Composer onSubmitPost={onSubmitPost} />
+         <Feed posts={posts} />
+         <Footer />
+      </div>
+   );
 }
 
 ReactDOM.render(
