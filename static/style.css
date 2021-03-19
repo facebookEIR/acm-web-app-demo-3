@@ -1,0 +1,55 @@
+html {
+    background-color: #ebf4f6;
+    font-family: "Verdana", sans-serif;
+    margin: 16px;
+}
+
+h1 {
+    color: #5e5656;
+}
+
+#header-image {
+    width: 520px;
+}
+
+#form-heading {
+    color: #58668b;
+}
+
+#form-textarea {
+    font-family: "Lucida Console", monospace;
+    border: 4px solid #bdeaee;
+    outline: none;
+    resize: none;
+}
+
+input[type=submit] {
+    background: #58668b;
+    border: 0;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    color: white;
+    font-family: "Verdana", sans-serif;
+    padding: 5px 15px;
+}
+
+.post {
+    border: 4px solid #bdeaee;
+    margin: 16px 0px;
+    padding: 8px;
+    width: 500px;
+}
+
+.post h2 {
+    color: #76b4bd;
+}
+
+.post p {
+    color: #58668b;
+    font-family: "Lucida Console", monospace;
+}
+
+.footer p {
+    font-size: 14px;
+    margin: 4px;
+}
