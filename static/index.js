@@ -51,11 +51,7 @@ function Feed(props) {
    const posts = props.posts.map((post, index) =>
       <Post key={index} date={post.date} text={post.text} />
    );
-   return (
-      <div>
-         {posts}
-      </div>
-   );
+   return <div>{posts}</div>;
 }
 
 function Post(props) {
@@ -81,18 +77,7 @@ function Footer() {
 /*** MAIN APP ***/
 
 function App() {
-   const [posts, setPosts] = React.useState(
-      [
-         {
-            "date": "03/03/2021",
-            "text": "This is my second journal entry. Here is some more text so that this journal entry takes multiple lines to render.",
-         },
-         {
-            "date": "03/02/2021",
-            "text": "This is my very first journal entry. Hello, world!",
-         },
-      ]
-   );
+   const [posts, setPosts] = React.useState([]);
 
    const onSubmitPost = (text) => {
       const todaysDate = new Date().toLocaleDateString();
